@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task 3 - Advanced Styling and JS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      padding: 20px;
+      color: #212529;
+    }
+
+    header {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #5e60ce;
+      color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin-top: 2rem;
+    }
+
+    section {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      flex: 1 1 300px;
+      max-width: 500px;
+    }
+
+    h2 {
+      color: #5e60ce;
+    }
+
+    .quiz-question {
+      margin-bottom: 1.2rem;
+    }
+
+    .quiz-question p {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-question input {
+      margin-right: 8px;
+    }
+
+    button {
+      background-color: #4895ef;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      margin-top: 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #3f37c9;
+    }
+
+    .joke {
+      margin-top: 1.5rem;
+      font-style: italic;
+      color: #495057;
+    }
+
+    #quizResult {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #2a9d8f;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Task 3 - Advanced Styling and JavaScript</h1>
+  <p>ApexPlanet Software Pvt Ltd</p>
+</header>
+
+<div class="container">
+  <!-- Quiz Section -->
+  <section id="quizSection">
+    <h2>Simple Quiz</h2>
+    <div class="quiz-question">
+      <p>1. What does HTML stand for?</p>
+      <input type="radio" name="q1" value="correct">Hyper Text Markup Language<br>
+      <input type="radio" name="q1" value="wrong">High Text Machine Language<br>
+      <input type="radio" name="q1" value="wrong">Hyper Tool Machine Language
+    </div>
+
+    <div class="quiz-question">
+      <p>2. Which language is used for styling web pages?</p>
+      <input type="radio" name="q2" value="wrong">HTML<br>
+      <input type="radio" name="q2" value="correct">CSS<br>
+      <input type="radio" name="q2" value="wrong">JavaScript
+    </div>
+
+    <div class="quiz-question">
+      <p>3. Which is used for web scripting?</p>
+      <input type="radio" name="q3" value="wrong">C++<br>
+      <input type="radio" name="q3" value="wrong">CSS<br>
+      <input type="radio" name="q3" value="correct">JavaScript
+    </div>
+
+    <button onclick="checkQuiz()">Submit Quiz</button>
+    <p id="quizResult"></p>
+  </section>
+
+  <!-- API Joke Section -->
+  <section>
+    <h2>Fetch a Random Joke (API)</h2>
+    <button onclick="fetchJoke()">Get Joke</button>
+    <div class="joke" id="jokeDisplay"></div>
+  </section>
+</div>
+
+<script>
+  function checkQuiz() {
+    let score = 0;
+    if (document.querySelector('input[name="q1"]:checked')?.value === "correct") score++;
+    if (document.querySelector('input[name="q2"]:checked')?.value === "correct") score++;
+    if (document.querySelector('input[name="q3"]:checked')?.value === "correct") score++;
+
+    document.getElementById("quizResult").textContent = `✅ You scored ${score} out of 3.`;
+  }
+
+  function fetchJoke() {
+    fetch("https://official-joke-api.appspot.com/random_joke")
+      .then(response => response.json())
+      .then(data => {
+        const joke = `${data.setup} - ${data.punchline}`;
+        document.getElementById("jokeDisplay").textContent = joke;
+      })
+      .catch(error => {
+        document.getElementById("jokeDisplay").textContent = "Oops! Failed to fetch joke.";
+      });
+  }
+</script>
+
+</body>
+</html>
