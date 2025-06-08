@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>priya's Web Portfolio</title>
+  <style>
+    :root {
+      --primary: #6a1b9a;         /* Deep Purple */
+      --secondary: #f06292;       /* Soft Pink */
+      --light-bg: #fce4ec;        /* Light Rose Background */
+      --text-dark: #4a148c;       /* Dark Purple Text */
+      --accent-bg: #ffffff;       /* White Cards */
+      --shadow: 0 4px 12px rgba(106, 27, 154, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: var(--text-dark);
+      background: var(--light-bg);
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    section {
+      display: none;
+      max-width: 900px;
+      width: 100%;
+      padding: 2rem;
+      border-radius: 12px;
+      background: var(--accent-bg);
+      box-shadow: var(--shadow);
+    }
+
+    section.active {
+      display: block;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    p, li {
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 1rem;
+    }
+
+    input, select, button {
+      padding: 0.6rem;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #ec407a;
+    }
+
+    ul li {
+      margin: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ul li button {
+      background: #d32f2f;
+      color: white;
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
+    }
+
+    ul li button:hover {
+      background: #b71c1c;
+    }
+
+    #productList {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    #productList div {
+      background: #f3e5f5;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      background: #4a148c;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    #about    { background-color: #fce4ec; }
+    #projects { background-color: #f3e5f5; }
+    #todo     { background-color: #fce4ec; }
+    #products { background-color: #f8bbd0; }
+    #contact  { background-color: #ede7f6; }
+
+    a {
+      color: var(--primary);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Korangi Govardhini Durga Priyadarshini</h1>
+    <nav>
+      <a onclick="showPage('about')">About</a>
+      <a onclick="showPage('projects')">Projects</a>
+      <a onclick="showPage('todo')">To-Do App</a>
+      <a onclick="showPage('products')">Products</a>
+      <a onclick="showPage('contact')">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about" class="active">
+      <h2>About Me</h2>
+      <p>Hello! I'm <strong>Korangi Govardhini Durga Priyadarshini</strong>, a passionate web developer pursuing MCA at Aditya University. I love creating clean, responsive web applications using HTML, CSS, and JavaScript. I aim to become a full-stack developer building impactful tech solutions.</p>
+    </section>
+
+    <section id="projects">
+      <h2>My Projects</h2>
+      <ul>
+        <li>Personal Portfolio Website</li>
+        <li>Responsive Contact Form with JS Validation</li>
+        <li>To-Do List App with Local Storage</li>
+        <li>Interactive Product Filter & Sort App</li>
+        <li>Image Carousel + Quiz UI with API</li>
+      </ul>
+    </section>
+
+    <section id="todo">
+      <h2>To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter task..." />
+      <button onclick="addTask()">Add Task</button>
+      <ul id="taskList"></ul>
+    </section>
+
+    <section id="products">
+      <h2>Products</h2>
+      <select id="filterCategory">
+        <option value="">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="fashion">Fashion</option>
+        <option value="grocery">Grocery</option>
+        <option value="ornaments">Ornaments</option>
+        <option value="jewels">Jewels</option>
+        <option value="interior">Interior</option>
+      </select>
+      <select id="sortBy">
+        <option value="default">Sort by</option>
+        <option value="price">Price</option>
+        <option value="rating">Rating</option>
+      </select>
+      <div id="productList"></div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p><strong>Email:</strong> <a href="mailto:govardhinipriyadarshini@gmail.com">govardhinipriyadarshini@gmail.com</a></p>
+      <p><strong>Phone:</strong> +91-9969696700</p>
+      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/govardhini-durga-priyadarshini-korangi-03a820305//" target="_blank">View Profile</a></p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Priyadarshini | All rights reserved.
+  </footer>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+    }
+
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+
+    function loadTasks() {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      taskList.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.textContent = task;
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.onclick = () => removeTask(index);
+        li.appendChild(removeBtn);
+        taskList.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const task = taskInput.value.trim();
+      if (task) {
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.push(task);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        taskInput.value = "";
+        loadTasks();
+      }
+    }
+
+    function removeTask(index) {
+      const tasks = JSON.parse(localStorage.getItem("tasks"));
+      tasks.splice(index, 1);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      loadTasks();
+    }
+
+    const products = [
+      { name: "Phone", category: "electronics", price: 30000, rating: 4.5 },
+      { name: "Laptop", category: "electronics", price: 70000, rating: 4.8 },
+      { name: "Earbuds", category: "electronics", price: 2000, rating: 4.3 },
+      { name: "Shirt", category: "fashion", price: 1200, rating: 4.0 },
+      { name: "Shoes", category: "fashion", price: 3500, rating: 4.2 },
+      { name: "Rice", category: "grocery", price: 80, rating: 4.5 },
+      { name: "Necklace", category: "jewels", price: 15000, rating: 4.7 },
+      { name: "Vase", category: "ornaments", price: 1200, rating: 4.1 },
+      { name: "Sofa", category: "interior", price: 45000, rating: 4.6 },
+    ];
+
+    const filterCategory = document.getElementById("filterCategory");
+    const sortBy = document.getElementById("sortBy");
+    const productList = document.getElementById("productList");
+
+    function displayProducts(data) {
+      productList.innerHTML = data.map(p => `
+        <div>
+          <h3>${p.name}</h3>
+          <p>Category: ${p.category}</p>
+          <p>Price: ₹${p.price}</p>
+          <p>Rating: ${p.rating}</p>
+        </div>
+      `).join("");
+    }
+
+    function applyFilters() {
+      let filtered = [...products];
+      const category = filterCategory.value;
+      const sort = sortBy.value;
+
+      if (category) filtered = filtered.filter(p => p.category === category);
+      if (sort === "price") filtered.sort((a, b) => a.price - b.price);
+      if (sort === "rating") filtered.sort((a, b) => b.rating - a.rating);
+
+      displayProducts(filtered);
+    }
+
+    filterCategory.onchange = applyFilters;
+    sortBy.onchange = applyFilters;
+
+    window.onload = () => {
+      loadTasks();
+      displayProducts(products);
+    };
+  </script>
+</body>
+</html>
