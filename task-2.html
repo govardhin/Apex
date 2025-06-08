@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task 2 - Intermediate HTML, CSS, JS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      color: #2c3e50;
+    }
+
+    header {
+      background-color: #283593;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    form, .todo {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    form h2, .todo h2 {
+      margin-bottom: 1rem;
+      color: #283593;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #4fc3f7;
+      outline: none;
+    }
+
+    button {
+      background-color: #283593;
+      color: white;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1a237e;
+    }
+
+    .todo ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .todo ul li {
+      background-color: #e3f2fd;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #333;
+    }
+
+    .todo ul li button {
+      background-color: #e53935;
+      color: white;
+      width: 25px;
+      height: 25px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .todo input[type="text"] {
+      margin-top: 0;
+    }
+
+    .todo > button {
+      margin-top: 0.5rem;
+      background-color: #4fc3f7;
+      color: white;
+      font-weight: bold;
+    }
+
+    .todo > button:hover {
+      background-color: #039be5;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Intermediate HTML, CSS, and JavaScript</h1>
+  <p>Task 2 - ApexPlanet Software Pvt Ltd</p>
+</header>
+
+<div class="container">
+  <!-- Contact Form -->
+  <form id="contactForm">
+    <h2>Contact Form</h2>
+    <input type="text" id="name" placeholder="Enter your name" required />
+    <input type="email" id="email" placeholder="Enter your email" required />
+    <textarea id="message" rows="4" placeholder="Enter your message" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Dynamic To-Do List -->
+  <div class="todo">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task" />
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+</div>
+
+<script>
+  // Form Validation
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const name = document.getElementById("name");
+    const email = document.getElementById("email");
+    const message = document.getElementById("message");
+
+    if (!name.value || !email.value || !message.value) {
+      alert("Please fill all the fields.");
+      return;
+    }
+
+    const emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!emailRegex.test(email.value)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    alert("✅ Form submitted successfully!");
+    name.value = "";
+    email.value = "";
+    message.value = "";
+  });
+
+  // To-Do List
+  function addTask() {
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+
+    if (taskInput.value.trim() === "") {
+      alert("Please enter a task.");
+      return;
+    }
+
+    const li = document.createElement("li");
+    li.textContent = taskInput.value;
+
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "×";
+    delBtn.onclick = function () {
+      taskList.removeChild(li);
+    };
+
+    li.appendChild(delBtn);
+    taskList.appendChild(li);
+
+    taskInput.value = "";
+  }
+</script>
+
+</body>
+</html>
